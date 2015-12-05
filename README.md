@@ -4,3 +4,4 @@ Programlama Dili:PHP->Framework:Codeigniter 3
 Databese:MYSQL
 CSS Framework:Bootstrap 3
 JS Framework:JQuery->Maps JS:JQuery Maps
+Proje URL:http://gpstakipsistemi.ahmetcakirci.com/
