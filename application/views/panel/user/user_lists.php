@@ -38,9 +38,8 @@
                                     <th>Email Adresi</th>
                                     <th>Durum</th>
                                     <th>Web Kullanıcısı</th>
-                                    <th>Hareketleri Görüntüle</th>
-                                    <th>Sil</th>
-                                    <th>Düzenle</th>
+                                    <th>Haritada Göster</th>
+                                    <th>Kullanıcı İşlemleri</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,10 +55,9 @@
                                              if($rows=='email'){ echo '<td>'.$values.'</td>';}
                                              if($rows=='status'){ echo '<td><a href="user_status/'.$id.($values==1?"/0":"/1").'"><span class="label label-';echo ($values==1?"success":"danger");echo'">';echo ($values==1?"Aktif":"Pasif");echo'</span></a></td>';}
                                              if($rows=='web'){ echo '<td><a href="user_web/'.$id.($values==1?"/0":"/1").'"><span class="label label-';echo ($values==1?"success":"danger");echo'">';echo ($values==1?"Aktif":"Pasif");echo'</span></a></td>';}
-                                             if($rows=='web'){ echo '<td><button type="button" class="btn btn-default btn-sm"><a href="user_locations/'.$id.'"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></button></td>';}
-                                             if($rows=='web'){ echo '<td><button type="button" class="btn btn-default btn-sm"><a href="user_delete/'.$id.'"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></button></td>';}
-                                             if($rows=='web'){ echo '<td><button type="button" class="btn btn-default btn-sm"><a href="user_update/'.$id.'"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a></button></td></tr>';}
-                                        }
+                                             if($rows=='web'){ echo '<td><div class="btn-group"><button type="button" class="btn btn-default">Seçenek Seç</button><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu"><li><a href="user_locations/'.$id.'">Hareketleri Görüntüle</a></li><li><a href="user_location_now/'.$id.'">Anlık Lokasyon</a></li></ul></div></td>';}
+                                             if($rows=='web'){ echo '<td><div class="btn-group"><button type="button" class="btn btn-default">İşlemi Seç</button><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button><ul class="dropdown-menu"><li><a href="user_delete/'.$id.'">Kullanıcıyı Sil</a></li><li><a href="user_update/'.$id.'">Kullanıcıyı Düzenle</a></li></ul></div></td>';}
+                                         }
                                         $i++;
                                     }
                                 }

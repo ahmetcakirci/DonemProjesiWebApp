@@ -2,6 +2,17 @@
 	</main><!-- #site-content -->
 
 	<footer id="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="well sidebar-nav">
+                            Bu çalışma; Ahmet Yesevi Üniversitesi - Yönetim Bilişim Sistemleri , Yüksek Lisans Dönem projesi olarak Yrd. Doç. Dr. Sami ACAR danışmanlığında, Ahmet ÇAKIRCI tarafından hazırlanmıştır.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</footer><!-- #site-footer -->
 
 	<!-- js -->

@@ -35,7 +35,7 @@ header('Access-Control-Allow-Origin: *');
 
             map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-            $.getJSON("http://gpstakipsistemi.ahmetcakirci.com/index.php/panel/user_map_lists/<?php echo (isset($idusers)?$idusers:0);?>", {}, function(data){
+            $.getJSON("http://gpstakipsistemi.ahmetcakirci.com/index.php/panel/user_map_date_list/<?php echo (isset($idusers)?$idusers:0); echo '/'; echo (isset($starttime)?$starttime:0); echo '/'; echo (isset($endtime)?$endtime:0);?>", {}, function(data){
                 $.each(data.places, function(i, item){
                     $(".list-group").append('<a href="#" class="list-group-item" rel="' + i + '">' + item.title + '</a>');
 
@@ -128,52 +128,52 @@ header('Access-Control-Allow-Origin: *');
     <?php endif; ?>
 
     <div class="container">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="span3">
-                <?php $this->load->view('panel/panel_menu');?>
-            </div><!--/span-->
-            <div class="span9">
-                <div class="jumbotron">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#all">Tüm Liste</a></li>
-                        <li><a data-toggle="tab" href="#datefiltre">Tarihli Filtrele</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="all" class="tab-pane fade in active">
-                            <div class="list-group"></div>
-                        </div>
-                        <div id="datefiltre" class="tab-pane fade">
-                            <div class="container">
-                                <?php if( $this->session->flashdata('error') ) echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>HATA! </strong>' . $this->session->flashdata('error') . '</div>'; ?>
-                                <?php if( $this->session->flashdata('success') ) echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"">&times;</button>' . $this->session->flashdata('success') . '</div>'; ?>
-                                <form action="<?php echo (isset($idusers)?site_url('panel/user_map_date').'/'.$idusers:0);?>" method="POST">
-                                <div class="form-group">
-                                    <label for="dob">Başlangıç Tarihi</label>
-                                    <div class="control-input">
-                                        <input type="text" id="dob" name="starttime" class="form-control" data-masked-input="99-99-9999" placeholder="DD-MM-YYYY" maxlength="10">
-                                        <i class="validation-icon"></i>
-                                    </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="span3">
+                    <?php $this->load->view('panel/panel_menu');?>
+                </div><!--/span-->
+                <div class="span9">
+                    <div class="jumbotron">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#all">Tüm Liste</a></li>
+                            <li><a data-toggle="tab" href="#datefiltre">Tarihli Filtrele</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="all" class="tab-pane fade in active">
+                                <div class="list-group"></div>
+                            </div>
+                            <div id="datefiltre" class="tab-pane fade">
+                                <div class="container">
+                                    <?php if( $this->session->flashdata('error') ) echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>HATA! </strong>' . $this->session->flashdata('error') . '</div>'; ?>
+                                    <?php if( $this->session->flashdata('success') ) echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"">&times;</button>' . $this->session->flashdata('success') . '</div>'; ?>
+                                    <form action="<?php echo (isset($idusers)?site_url('panel/user_map_date').'/'.$idusers:0);?>" method="POST">
+                                        <div class="form-group">
+                                            <label for="dob">Başlangıç Tarihi</label>
+                                            <div class="control-input">
+                                                <input type="text" id="dob" name="starttime" class="form-control" data-masked-input="99-99-9999" placeholder="DD-MM-YYYY" maxlength="10">
+                                                <i class="validation-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dob">Bitiş Tarihi</label>
+                                            <div class="control-input">
+                                                <input type="text" id="dob" name="endtime" class="form-control" data-masked-input="99-99-9999" placeholder="DD-MM-YYYY" maxlength="10">
+                                                <i class="validation-icon"></i>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-large btn-primary" type="submit">Tarihe Göre Filtrele</button><?php if ($lists) : ?> <a href="<?php echo (isset($idusers)?site_url('panel/user_locations').'/'.$idusers:0);?>" class="btn btn-info" role="button">Tüm Listeyi Görüntüle</a><?php endif; ?>
+                                    </form>
                                 </div>
-                                <div class="form-group">
-                                    <label for="dob">Bitiş Tarihi</label>
-                                    <div class="control-input">
-                                        <input type="text" id="dob" name="endtime" class="form-control" data-masked-input="99-99-9999" placeholder="DD-MM-YYYY" maxlength="10">
-                                        <i class="validation-icon"></i>
-                                    </div>
-                                </div>
-                                <button class="btn btn-large btn-primary" type="submit">Tarihe Göre Filtrele</button><?php if ($lists) : ?> <a href="user_lists" class="btn btn-info" role="button">Tüm Listeyi Görüntüle</a><?php endif; ?>
-                                </form>
                             </div>
                         </div>
+                        <div id="map"></div>
+                        <div id="content">
+                        </div>
                     </div>
-                    <div id="map"></div>
-                    <div id="content">
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 </main><!-- #site-content -->
 

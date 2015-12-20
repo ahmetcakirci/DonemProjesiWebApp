@@ -7,7 +7,7 @@
             </div><!--/span-->
             <div class="span9">
                 <div class="jumbotron">
-                    <center><h1>GPS TAKİP SİSTEMİ</h1></center>
+                    <center><img src="<?= base_url('assets/img/logo.png') ?>"> </center>
                 </div>
             </div>
         </div>

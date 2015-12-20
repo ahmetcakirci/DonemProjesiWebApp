@@ -1,18 +1,19 @@
 <?php
-namespace logotransfer\lib\database
+namespace gpstakipsistemi\lib\database
 {
      header('Content-Type: text/html; Charset=UTF-8');
      date_default_timezone_set('Europe/Istanbul');
 
-	/*
-    *@Package LogoDataTransfer
-    *@Author Ahmet ÇAKIRCI <ahmet.cakirci@himnet.com.tr>
-    *@Version 1.0
-    *@Description LogoDataTrasfer modulu için Database sınıfı.PDO kütüphanesi kullanılarak yapılmıştır.
-    *@Copyright Himnet İletişim
-    *@Date October 2014
-    */
-     use logotransfer\lib\conf\config;
+    //namespace gpstakipsistemi;
+    /*
+     *@Package GPSTAKİPSİSTEMİ
+     *@Author Ahmet ÇAKIRCI <ahmetcakirci@gmail.com>
+     *@Version 1.0
+     *@Description
+     *@Copyright
+     *@Date October 2015
+     */
+     use gpstakipsistemi\lib\conf\config;
 
      class DB
      {
@@ -47,9 +48,9 @@ namespace logotransfer\lib\database
 		public static function init()
 		{
 			self::$pdo = new \PDO(
-				'dblib:host=' . config::MSSQL_HOST .';dbname=' .config::MSSQL_DB,
-				config::MSSQL_USER,
-				config::MSSQL_PASS
+				'mysql:host=' . config::MYSQL_HOST .';dbname=' .config::MYSQL_DB,
+				config::MYSQL_USER,
+				config::MYSQL_PASS
 			);
 	
 			self::$pdo->exec('SET NAMES `' . self::$charset . '`');
@@ -100,7 +101,7 @@ namespace logotransfer\lib\database
 		{
 			if(!$stmt = self::query($query,$bindings))
 				return false;
-	
+
 			return $stmt->fetch();
 		}
 

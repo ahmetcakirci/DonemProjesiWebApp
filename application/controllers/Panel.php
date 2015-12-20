@@ -200,6 +200,7 @@ class Panel extends CI_Controller {
 
         $idusers = trim(strip_tags($this->uri->segment(3)));
 
+        $data->lists=false;
         $data->idusers=$idusers;
         $data->context=$this->load->view('panel/user/user_locations',$data);
         $this->load->view('panel/panel', $data,TRUE);
@@ -235,6 +236,109 @@ class Panel extends CI_Controller {
             ->set_content_type('application/json', 'UTF-8')
             ->set_output(json_encode(array('places'=>$places)));
     }
+
+    public function user_map_date(){
+        $data = new stdClass();
+
+        $idusers = trim(strip_tags($this->uri->segment(3)));
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        // set validation rules
+        $this->form_validation->set_rules('starttime', 'Başlangıç Tarihi', 'required');
+        $this->form_validation->set_rules('endtime', 'Bitiş Tarihi', 'required');
+
+        $starttime="0";
+        $endtime="0";
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('error', 'Lütfen Başlangıç ve Bitiş tarihlerini giriniz.');
+        }else{
+            $starttime = $this->input->post('starttime');
+            $endtime = $this->input->post('endtime');
+        }
+
+        $data->lists=true;
+        $data->idusers=$idusers;
+        $data->starttime=$starttime;
+        $data->endtime=$endtime;
+        $data->context=$this->load->view('panel/user/user_locations_date',$data);
+        $this->load->view('panel/panel', $data,TRUE);
+    }
+
+    public function user_map_date_list(){
+          $idusers = trim(strip_tags($this->uri->segment(3)));
+          $starttime = trim(strip_tags($this->uri->segment(4)));
+          $endtime = trim(strip_tags($this->uri->segment(5)));
+
+          $map_lists=$this->panel_model->user_date_search($idusers,$starttime,$endtime);
+          $places=array();
+          $id=1;
+          foreach( $map_lists as $index => $row){
+                $title="";
+                $description="";
+                $lat="";
+                $lng="";
+                foreach ($row as $rows=>$values){
+                    if($rows=="idlocations"){
+                        $title=$id.'. Lokasyon';
+                    }else if($rows=="time"){
+                        $description='Tarih: '.$values;
+                    }else if($rows=="latitude"){
+                        $lat=$values;
+                    }else if($rows=="longitude"){
+                        $lng=$values;
+                    }
+                }
+                array_push($places,array('title'=>$title,'description'=>$description,'lat'=>$lat,'lng'=>$lng));
+                $id++;
+          }
+
+          $this->output->set_content_type('application/json', 'UTF-8')->set_output(json_encode(array('places'=>$places)));
+    }
+
+    public function user_location_now(){
+        $data = new stdClass();
+
+        $idusers = trim(strip_tags($this->uri->segment(3)));
+
+        $data->idusers=$idusers;
+        $data->context=$this->load->view('panel/user/user_location_now',$data);
+        $this->load->view('panel/panel', $data,TRUE);
+    }
+
+    public function user_map_now(){
+        $idusers = trim(strip_tags($this->uri->segment(3)));
+
+        $map_lists=$this->panel_model->user_map_now($idusers);
+        $places=array();
+        $id=1;
+        foreach( $map_lists as $index => $row){
+            $title="";
+            $description="";
+            $lat="";
+            $lng="";
+            foreach ($row as $rows=>$values){
+                if($rows=="idlocationnow"){
+                    $title='Lokasyon';
+                }else if($rows=="time"){
+                    $description='Tarih: '.$values;
+                }else if($rows=="latitude"){
+                    $lat=$values;
+                }else if($rows=="longitude"){
+                    $lng=$values;
+                }
+            }
+            array_push($places,array('title'=>$title,'description'=>$description,'lat'=>$lat,'lng'=>$lng));
+            $id++;
+        }
+
+        $this->output
+            ->set_content_type('application/json', 'UTF-8')
+            ->set_output(json_encode(array('places'=>$places)));
+    }
+
+
     public function user_delete(){
         $idusers = trim(strip_tags($this->uri->segment(3)));
 

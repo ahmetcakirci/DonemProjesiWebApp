@@ -1,26 +1,27 @@
 <?php
 /*
- *@Package LogoDataTransfer
- *@Author Ahmet ÇAKIRCI <ahmet.cakirci@himnet.com.tr>
- *@Version 1.0
- *@Description
- *@Copyright Himnet İletişim
- *@Date October 2015
- */
+*@Package GPSTAKİPSİSTEMİ
+*@Author Ahmet ÇAKIRCI <ahmetcakirci@gmail.com>
+*@Version 1.0
+*@Description
+*@Copyright
+*@Date October 2015
+*/
 
 define("DS", DIRECTORY_SEPARATOR);
-define("PATH", $_SERVER['DOCUMENT_ROOT']);
+define("PATH", $_SERVER['DOCUMENT_ROOT'].DS.'services');
 
-function LogoTransferAutoload($className){
+function GPSTakipSistemiAutoload($className){
     $parts = explode('\\', $className);
     $className= end($parts);
 
     $directoryList=array
     (
-        PATH,
-        PATH.'lib'.DS,
-        PATH.'lib'.DS.'database'.DS,
-        PATH.'lib'.DS.'conf'.DS
+        PATH.DS,
+        PATH.DS.'lib'.DS,
+        PATH.DS.'lib'.DS.'database'.DS,
+        PATH.DS.'lib'.DS.'type'.DS,
+        PATH.DS.'lib'.DS.'conf'.DS
     );
 
     $fileNameFormats=array
@@ -64,9 +65,9 @@ function LogoTransferAutoload($className){
 if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
     //SPL autoloading was introduced in PHP 5.1.2
     if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-        spl_autoload_register('LogoTransferAutoload', true, true);
+        spl_autoload_register('GPSTakipSistemiAutoload', true, true);
     } else {
-        spl_autoload_register('LogoTransferAutoload');
+        spl_autoload_register('GPSTakipSistemiAutoload');
     }
 } else {
     /**
@@ -75,7 +76,7 @@ if (version_compare(PHP_VERSION, '5.1.2', '>=')) {
      */
     function __autoload($classname)
     {
-        LogoTransferAutoload($classname);
+        GPSTakipSistemiAutoload($classname);
     }
 }
 ?>

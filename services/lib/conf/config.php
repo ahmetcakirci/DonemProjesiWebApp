@@ -17,7 +17,7 @@ namespace gpstakipsistemi\lib\conf
         */
 		const MYSQL_HOST='localhost';
 		const MYSQL_DB='gpstakipsistemi';
-		const MYSQL_USER='gpstakip';
+		const MYSQL_USER='gpstakipuser';
 		const MYSQL_PASS='s@_iz3A';
 	}
 }

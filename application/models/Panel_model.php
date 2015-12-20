@@ -120,6 +120,21 @@ class Panel_model extends CI_Model {
     }
 
     /**
+     * user_map_now function.
+     *
+     * @access public
+     * @param mixed $idusers
+     * @return bool true on success, false on failure
+     */
+    public function user_map_now($idusers){
+        $this->db->select("idlocationnow,idusers,latitude,longitude,time");
+        $this->db->from("location_now");
+        $this->db->where("idusers",$idusers);
+        $query=$this->db->get();
+        return $query->result();
+    }
+
+    /**
      * user_update_row function.
      *
      * @access public
@@ -187,6 +202,26 @@ class Panel_model extends CI_Model {
         $sonuc=$query->result();
         return $sonuc[0]->toplam;
     }
+
+    /**
+     * user_date_search function.
+     *
+     * @access public
+     * @param mixed $idusers
+     * @param mixed $starttime
+     * @param mixed $endtime
+     * @return bool true on success, false on failure
+     */
+    public function user_date_search($idusers,$starttime,$endtime){
+        $this->db->select("idlocations,idusers,latitude,longitude,time");
+        $this->db->from("locations");
+        $this->db->where("idusers",$idusers);
+        $this->db->where('time >',date('Y-m-d', strtotime($starttime)));
+        $this->db->where('time <',date('Y-m-d', strtotime($endtime)));
+        $query=$this->db->get();
+        return $query->result();
+    }
+
 
     /**
      * user_search_count function.
